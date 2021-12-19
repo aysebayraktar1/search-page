@@ -12,35 +12,39 @@ import {
   OldPriceStyled,
   BasketButtonStyled,
 } from "./styled";
+import PropTypes from "prop-types";
+import { useStoreActions } from "easy-peasy";
 
-import product from "../../assets/images/product.png";
+const ProductCard = ({ item }) => {
+  const addShoppingCart = useStoreActions((actions) => actions.addShoppingCart);
+  const { name, brand, color, price, discount, discountedPrice, img } = item;
 
-const ProductCard = () => {
-  const hover = false;
+  const hover = true;
   return (
     <CardWrapper>
       <ImageStyled>
-        <img src={product} alt="" />
+        <img src={img} alt="" width="100%" height="100%" />
       </ImageStyled>
       <ProductDetailStyled>
-        <ProductNameStyled>
-          Apple iPhone 11 Pro Maxi Phone 11 Pro Max iPhone 11 (Max 2 Line)
-          iPhone 11 (Max 2 Line)
-        </ProductNameStyled>
+        <ProductNameStyled>{name}</ProductNameStyled>
         {hover ? (
-          <BasketButtonStyled>Sepete Ekle</BasketButtonStyled>
+          <BasketButtonStyled onClick={() => addShoppingCart(item)}>
+            Sepete Ekle
+          </BasketButtonStyled>
         ) : (
           <>
             <CategoryStyled>
-              <CategoryNameStyled>Marka:</CategoryNameStyled>Apple
+              <CategoryNameStyled>Marka:</CategoryNameStyled>
+              {brand}
             </CategoryStyled>
             <CategoryStyled>
-              <CategoryNameStyled>Renk:</CategoryNameStyled>Sarı
+              <CategoryNameStyled>Renk:</CategoryNameStyled>
+              {color}
             </CategoryStyled>
-            <DiscountendPriceStyled>80.95 TL</DiscountendPriceStyled>
+            <DiscountendPriceStyled>{discountedPrice}</DiscountendPriceStyled>
             <OldPriceStyled>
-              <PriceStyled>124.00 TL </PriceStyled>
-              <DiscountStyled>12%</DiscountStyled>
+              <PriceStyled>{price}</PriceStyled>
+              <DiscountStyled>{discount}</DiscountStyled>
             </OldPriceStyled>
           </>
         )}
@@ -50,3 +54,7 @@ const ProductCard = () => {
 };
 
 export default ProductCard;
+
+ProductCard.propTypes = {
+  item: PropTypes.object,
+};

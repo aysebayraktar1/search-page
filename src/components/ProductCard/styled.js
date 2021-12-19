@@ -14,6 +14,11 @@ export const ImageStyled = styled.div`
   border-radius: 10px;
   padding: 3px 15px 4px;
   border: 1px solid #e5e5e5;
+  width: 224px;
+  height: 332px;
+  img {
+    object-fit: cover;
+  }
 `;
 
 export const ProductDetailStyled = styled.div`
@@ -31,6 +36,7 @@ export const ProductNameStyled = styled.div`
   font-size: 12px;
   line-height: 18px;
   margin-bottom: 10px;
+  margin-top: 9px;
 `;
 export const CategoryStyled = styled.div`
   display: flex;

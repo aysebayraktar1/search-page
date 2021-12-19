@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
 import {
   HeaderWrapper,
   InputStyled,
@@ -8,44 +9,25 @@ import {
   HeaderContainer,
   LogoStyled,
   BadgeStyled,
-  BasketStyled,
-  BasketItemStyled,
-  ImageStyled,
-  ProductNameStyled,
-  RemoveButtonStyled,
-  ProductDescStyled,
 } from "./styled";
 import logo from "../../assets/images/logo.png";
 import search from "../../assets/images/search.png";
-import product from "../../assets/images/product.png";
 import Modal from "../../components/Modal";
+import Cart from "../Cart";
+import { useStoreState } from "easy-peasy";
 
 const Header = () => {
-  const data = [
-    {
-      image: product,
-      title: "iPhone 11 Kırmızı Kılıflı Garantili Telefon",
-    },
-    {
-      image: product,
-      title: "iPhone 11 Kırmızı Kılıflı Garantili Telefon",
-    },
-    {
-      image: product,
-      title: "iPhone 11 Kırmızı Kılıflı Garantili Telefon",
-    },
-    {
-      image: product,
-      title: "iPhone 11 Kırmızı Kılıflı Garantili Telefon",
-    },
-  ];
   const [showBasket, setShowBasket] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [item, setItem] = useState();
 
-  const deleteItem = () => {
+  const deleteItem = (item) => {
     setShowBasket(false);
+    setItem(item);
     setOpenModal(true);
   };
+  const cart = useStoreState((state) => state.cart);
+
   return (
     <HeaderWrapper>
       <HeaderContainer>
@@ -60,23 +42,9 @@ const Header = () => {
         <ButtonStyled onClick={() => setShowBasket(!showBasket)}>
           Sepetim
         </ButtonStyled>
-        <BadgeStyled>1</BadgeStyled>
-        {showBasket && (
-          <BasketStyled>
-            {data.map(({ image, title }, idx) => (
-              <BasketItemStyled key={idx}>
-                <ImageStyled src={image} alt="" />
-                <ProductDescStyled>
-                  <ProductNameStyled>{title}</ProductNameStyled>
-                  <RemoveButtonStyled onClick={() => deleteItem()}>
-                    Kaldır
-                  </RemoveButtonStyled>
-                </ProductDescStyled>
-              </BasketItemStyled>
-            ))}
-          </BasketStyled>
-        )}
-        {openModal && <Modal />}
+        {cart.length > 0 && <BadgeStyled>{cart?.length}</BadgeStyled>}
+        {showBasket && cart.length > 0 && <Cart deleteItem={deleteItem} />}
+        {openModal && <Modal item={item} setOpenModal={setOpenModal} />}
       </HeaderContainer>
     </HeaderWrapper>
   );

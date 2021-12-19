@@ -9,8 +9,15 @@ import {
   ModalContent,
   DividerStyled,
 } from "./styled";
+import PropTypes from "prop-types";
 
-const Modal = () => {
+import { useStoreActions } from "easy-peasy";
+
+const Modal = ({ item, setOpenModal }) => {
+  const deleteShoppingCart = useStoreActions(
+    (actions) => actions.deleteShoppingCart
+  );
+
   return (
     <ModalStyled>
       <ModalContent>
@@ -27,8 +34,20 @@ const Modal = () => {
           remaining essentiall....
         </ModalContentStyled>
         <ButtonStyled>
-          <ApprovalButtonStyled>EVET</ApprovalButtonStyled>
-          <DeclineButtonStyled>HAYIR</DeclineButtonStyled>
+          <ApprovalButtonStyled
+            onClick={() => {
+              deleteShoppingCart(item) && setOpenModal(false);
+            }}
+          >
+            EVET
+          </ApprovalButtonStyled>
+          <DeclineButtonStyled
+            onClick={() => {
+              setOpenModal(false);
+            }}
+          >
+            HAYIR
+          </DeclineButtonStyled>
         </ButtonStyled>
       </ModalContent>
     </ModalStyled>
@@ -36,3 +55,8 @@ const Modal = () => {
 };
 
 export default Modal;
+
+Modal.propTypes = {
+  item: PropTypes.object,
+  setOpenModal: PropTypes.any,
+};
