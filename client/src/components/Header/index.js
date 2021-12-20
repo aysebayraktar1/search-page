@@ -12,7 +12,7 @@ import {
 } from "./styled";
 import logo from "../../assets/images/logo.png";
 import search from "../../assets/images/search.png";
-import Modal from "../../components/Modal";
+import Modal from "../Modal";
 import Cart from "../Cart";
 import { useStoreState } from "easy-peasy";
 
