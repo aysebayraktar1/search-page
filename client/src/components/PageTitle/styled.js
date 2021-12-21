@@ -45,7 +45,7 @@ export const SortButtonStyled = styled.button`
 
 export const DropdownStyled = styled.div`
   position: absolute;
-  right: 84px;
+  right: 94px;
   top: 166px;
   background-color: black;
 `;
