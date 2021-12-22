@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+    search-app-server:
+        build:
+            context: ./server
+            dockerfile: Dockerfile
+        ports:
+            - "5000:5000"
+        expose:
+            - "5000"
+#        volumes:
+#            - ./server:/opt/app:delegated
+#            - ./server/package.json:/opt/package.json
+#            - ./server/package-lock.json:/opt/package-lock.json
+#            - notused:/opt/app/node_modules
+        networks:
+            - search-app-network
+
+    search-app-client:
+        build:
+            context: ./client
+            dockerfile: Dockerfile
+        ports:
+            - "3000:3000"
+        expose:
+            - "3000"
+#        volumes:
+#            - ./web-client:/opt/app:delegated
+#            - ./web-client/package.json:/opt/package.json
+#            - ./web-client/package-lock.json:/opt/package-lock.json
+#            - notused:/opt/app/node_modules
+        networks:
+            - search-app-network
+
+networks:
+    search-app-network:
+        driver: bridge
