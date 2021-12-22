@@ -26,9 +26,6 @@ export const ImageStyled = styled.div`
   border: 1px solid #e5e5e5;
   width: 224px;
   height: 332px;
-  img {
-    object-fit: cover;
-  }
   ${CardWrapper}:hover & {
     border: 1px solid white;
   }

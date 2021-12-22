@@ -16,6 +16,9 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
+  ${down("sm")} {
+    width: 100%;
+  }
 `;
 export const LogoStyled = styled.img`
   object-fit: contain;

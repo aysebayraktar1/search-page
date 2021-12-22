@@ -24,23 +24,27 @@ const App = () => {
   const [isFilterBrand, setIsFilterBrand] = useState(false);
   const [filter, setFilter] = useState("");
 
-  console.log(filter);
   useEffect(async () => {
+    //save localstorage empty array
     localStorage.setItem("cart", JSON.stringify([]));
+
+    //fetch all data
     await axios.post("http://localhost:5000/products").then((res) => {
       setProducts(res.data);
 
+      //calculate color category name from all data
+      const colorNumber = res.data.reduce((acc, cur) => {
+        acc[cur.color] = (acc[cur.color] || 0) + 1;
+        return acc;
+      }, {});
+
+      setFilterColor(colorNumber);
+      //calculate brand category name from all data
       const brandNumber = res.data.reduce((acc, cur) => {
         acc[cur.brand] = (acc[cur.brand] || 0) + 1;
         return acc;
       }, {});
       setFilterBrand(brandNumber);
-
-      const colorNumber = products.reduce((acc, cur) => {
-        acc[cur.color] = (acc[cur.color] || 0) + 1;
-        return acc;
-      }, {});
-      setFilterColor(colorNumber);
     });
   }, []);
 
@@ -94,7 +98,7 @@ const App = () => {
         return item;
       }
     });
-
+    console.log(filter);
     setIsFilterBrand(!isFilterBrand);
   };
 
@@ -112,7 +116,7 @@ const App = () => {
   const data = [
     {
       name: "En Düşük Fiyat",
-      type: null,
+      type: "resentAsc",
     },
     {
       name: "En Yüksek Fiyat",
@@ -146,6 +150,7 @@ const App = () => {
                 </FilterItemStyled>
               </FilterAreaStyled>
             ))}
+            <CategoryNameStyled>Sıralama</CategoryNameStyled>
             {data?.map(({ name, type }, id) => (
               <FilterAreaStyled key={id}>
                 <FilterItemStyled onClick={() => handleFilterSort(type)}>
@@ -156,10 +161,7 @@ const App = () => {
             <CategoryNameStyled>Marka</CategoryNameStyled>
             {Object.keys(filterBrand)?.map((item, id) => (
               <FilterAreaStyled key={id}>
-                <FilterItemStyled
-                  data-attribute={item}
-                  onClick={() => handleFilterBrand(item)}
-                >
+                <FilterItemStyled onClick={() => handleFilterBrand(item)}>
                   {item}
                 </FilterItemStyled>
               </FilterAreaStyled>

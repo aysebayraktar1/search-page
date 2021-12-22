@@ -1,8 +1,8 @@
 import express from "express";
-import Storage from "./middleware/storage-middleware.js";
-import BrandFilter from "./middleware/brand-filter-middleware.js";
-import Sorting from "./middleware/sorting-middleware.js";
-import ColorFilter from "./middleware/color-filter-middleware.js";
+import Storage from "./middleware/storageMiddleware.js";
+import BrandFilter from "./middleware/brandFilterMiddleware.js";
+import Sorting from "./middleware/sortingMiddleware.js";
+import ColorFilter from "./middleware/colorFilterMiddleware.js";
 
 import cors from 'cors'
 
