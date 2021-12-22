@@ -3,6 +3,7 @@ import Storage from "./middleware/storage-middleware.js";
 import BrandFilter from "./middleware/brand-filter-middleware.js";
 import Sorting from "./middleware/sorting-middleware.js";
 import ColorFilter from "./middleware/color-filter-middleware.js";
+
 import cors from 'cors'
 
 const app = express();

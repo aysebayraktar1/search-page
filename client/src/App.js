@@ -17,6 +17,7 @@ import axios from "axios";
 
 const App = () => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterColor, setFilterColor] = useState([]);
   const [filterBrand, setFilterBrand] = useState([]);
@@ -47,10 +48,9 @@ const App = () => {
 
   const indexOfLastProduct = currentPage * 12;
   const indexOfFirstProduct = indexOfLastProduct - 12;
-  const currentProduct = products.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
+  const currentProduct = filteredProducts
+    ? filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
+    : products.slice(indexOfFirstProduct, indexOfLastProduct);
 
   const handleFilterBrand = (item) => {
     setFilter((previousState) => {
@@ -127,10 +127,13 @@ const App = () => {
       type: "resentAsc",
     },
   ];
+  const handleFilter = (val) => {
+    setFilteredProducts(val);
+  };
 
   return (
     <div className="App">
-      <Header />
+      <Header products={products} handleFilter={handleFilter} />
       <BodyWrapper>
         <PageTitle />
         <ProductAreaStyled>
@@ -168,7 +171,14 @@ const App = () => {
             ))}
           </ProductCardWrapper>
         </ProductAreaStyled>
-        <Pagination totalItem={products.length} paginate={paginate} />
+        {(filteredProducts?.length || products.length) && (
+          <Pagination
+            totalItem={
+              filteredProducts ? filteredProducts.length : products.length
+            }
+            paginate={paginate}
+          />
+        )}
       </BodyWrapper>
     </div>
   );
