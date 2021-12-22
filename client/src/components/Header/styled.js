@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { down } from "styled-breakpoints";
 
 export const HeaderWrapper = styled.div`
   height: 96px;
@@ -19,26 +20,38 @@ export const HeaderContainer = styled.div`
 export const LogoStyled = styled.img`
   object-fit: contain;
 `;
-export const SearchStyled = styled.div``;
+export const SearchStyled = styled.div`
+  display: flex;
+`;
 
 export const InputStyled = styled.input`
   width: 695px;
-  border-radius: 100px;
   background: #eeeeee;
   border: none;
   height: 46px;
+  border-radius: 100px;
   position: relative;
-  ::placeholder {
-    position: absolute;
-    left: 40px;
-    top: 18px;
+  border-bottom-left-radius: unset;
+  border-top-left-radius: unset;
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+
+  ${down("sm")} {
+    width: 100%;
   }
 `;
-export const SearchImageStyled = styled.img`
-  position: absolute;
-  z-index: 1000;
-  top: 40px;
-  padding: 0px 15px;
+export const SearchImageStyled = styled.div`
+  background: #eeeeee;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 10px;
+  border-bottom-left-radius: 100px;
+  border-top-left-radius: 100px;
+  img {
+    z-index: 1000;
+  }
 `;
 
 export const ButtonStyled = styled.button`

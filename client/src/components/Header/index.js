@@ -33,7 +33,9 @@ const Header = () => {
       <HeaderContainer>
         <LogoStyled src={logo} alt="" />
         <SearchStyled>
-          <SearchImageStyled src={search} alt="" />
+          <SearchImageStyled>
+            <img src={search} alt="" />
+          </SearchImageStyled>
           <InputStyled
             type="text"
             placeholder="25 milyon’dan fazla ürün içerisinde ara"
@@ -42,7 +44,7 @@ const Header = () => {
         <ButtonStyled onClick={() => setShowBasket(!showBasket)}>
           Sepetim
         </ButtonStyled>
-        {cart.length > 0 && <BadgeStyled>{cart?.length}</BadgeStyled>}
+        {cart?.length > 0 && <BadgeStyled>{cart.length}</BadgeStyled>}
         {showBasket && cart.length > 0 && <Cart deleteItem={deleteItem} />}
         {openModal && <Modal item={item} setOpenModal={setOpenModal} />}
       </HeaderContainer>
